@@ -1,5 +1,6 @@
 #include "MainMenuStartButton.h"
-#include "MainMenu.h"
+#include "../MainMenu.h"
+#include "../../MainGame/MainGame.h"
 
 MainMenuStartButton::MainMenuStartButton()
 {

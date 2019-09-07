@@ -16,11 +16,11 @@ MainMenuButton::MainMenuButton(sf::Vector2f vector, sf::Text text, sf::RenderWin
 	this->shape.setPosition(position);
 }
 
-void unhighlight() {
+void MainMenuButton::unhighlight() {
 	this->shape.setFillColor(sf::Color::White);
 }
 
-void highlight() {
+void MainMenuButton::highlight() {
 	this->shape.setFillColor(sf::Color::Red);
 }
 

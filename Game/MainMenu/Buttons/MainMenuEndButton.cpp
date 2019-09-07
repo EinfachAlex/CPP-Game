@@ -1,5 +1,5 @@
 #include "MainMenuEndButton.h"
-#include "MainMenu.h"
+#include "../MainMenu.h"
 
 MainMenuEndButton::MainMenuEndButton() {
 

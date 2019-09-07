@@ -1,5 +1,5 @@
 #include "MainMenuMiddleButton.h"
-#include "MainMenu.h"
+#include "../MainMenu.h"
 
 MainMenuMiddleButton::MainMenuMiddleButton() {
 

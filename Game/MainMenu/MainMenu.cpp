@@ -19,7 +19,7 @@ MainMenu::MainMenu(sf::RenderWindow* window) {
 	endButton = new MainMenuEndButton(sf::Vector2f(300.0f, 100.0f), sf::Text("Spiel beenden!", font, 30), *this->window, position, this);
 
 	activeButton = startButton;
-	//activeButton->highlight();
+	activeButton->highlight();
 }
 
 void MainMenu::draw(sf::RenderWindow& window) {

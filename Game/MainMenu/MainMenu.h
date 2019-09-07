@@ -1,8 +1,8 @@
 #pragma once
 
-#include "MainMenuStartButton.h"
-#include "MainMenuMiddleButton.h"
-#include "MainMenuEndButton.h"
+#include "Buttons/MainMenuStartButton.h"
+#include "Buttons/MainMenuMiddleButton.h"
+#include "Buttons/MainMenuEndButton.h"
 
 class MainMenu
 {
