@@ -28,5 +28,7 @@ void MainMenuStartButton::onPressD() {
 
 void MainMenuStartButton::onPressEnter() {
 	this->mainMenu->active = false;
+	MainGame mainGame = MainGame();
+	mainGame.initialize();
 }
 
