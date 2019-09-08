@@ -11,8 +11,8 @@ class MainGame
 public:
 	static bool active;
 	static GameState * gameState;
+	static GameWorld * gameWorld;
 	std::ifstream savedGameStateFile;
-	GameWorld gameWorld;
 
 	MainGame();
 	void initialize();

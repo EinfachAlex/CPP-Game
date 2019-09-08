@@ -7,9 +7,9 @@
 class GameWorld
 {
 private:
-	WorldBlock* blocks[10][10];
 	std::ifstream worldFile;
 public:
+	WorldBlock* blocks[10][10];
 	void loadWorld(int);
 };
 

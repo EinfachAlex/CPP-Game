@@ -8,6 +8,7 @@
 
 bool MainGame::active = false;
 GameState * MainGame::gameState;
+GameWorld * MainGame::gameWorld;
 
 MainGame::MainGame()
 {
@@ -21,7 +22,16 @@ void MainGame::initialize()
 	}
 	else {
 		std::cout << this->gameState->getName() << '\n';
-		gameWorld.loadWorld(1);
+		this->gameWorld = new GameWorld();
+		this->gameWorld->loadWorld(1);
+		for (size_t i = 0; i < 10; i++)
+		{
+			for (size_t j = 0; j < 10; j++)
+			{
+				if (this->gameWorld->blocks[i][j]) {
+				}
+			}
+		}
 	}
 
 	this->active = true;
