@@ -11,11 +11,10 @@ void calculateFPS() {
 	std::chrono::time_point<std::chrono::system_clock> now = std::chrono::system_clock::now();
 	frames++;
 
-	long int now_seconds = now.time_since_epoch().count() / 10000000;
-	long int lasttimestamp_seconds = lasttimestamp.time_since_epoch().count() / 10000000;
+	auto timePassed = std::chrono::duration_cast<std::chrono::seconds>(now - lasttimestamp);
 
-	if (now_seconds != lasttimestamp_seconds) {
-		std::cout << "FPS: " << (frames / (now_seconds - lasttimestamp_seconds)) << "\n";
+	if (timePassed.count() >= 1) {
+		std::cout << "FPS: " << (frames) << "\n";
 
 		lasttimestamp = now;
 		frames = 0;
