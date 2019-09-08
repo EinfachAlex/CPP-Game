@@ -3,6 +3,8 @@
 #include <fstream>
 #include <iostream>
 #include "GameState.h"
+#include "../MainMenu/MainMenu.h"
+#include "World/GameWorld.h"
 
 bool MainGame::active = false;
 GameState * MainGame::gameState;
@@ -18,7 +20,8 @@ void MainGame::initialize()
 		startNewGame();
 	}
 	else {
-		std::cout << this->gameState->getName();
+		std::cout << this->gameState->getName() << '\n';
+		gameWorld.loadWorld(1);
 	}
 
 	this->active = true;
