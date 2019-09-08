@@ -3,13 +3,16 @@
 
 #include "FPSCounter.h"
 #include "desktopResolution.h"
-#include "MainMenu.h"
+#include "MainMenu/MainMenu.h"
+#include "MainGame/MainGame.h"
 
 int main()
 {
 	sf::RenderWindow window(sf::VideoMode((getDesktopResolution().right / 2), (getDesktopResolution().bottom) / 2), "SFML works!");
 
 	MainMenu mainMenu = MainMenu(&window);
+
+	MainGame mainGame = MainGame();
 
 	window.setVerticalSyncEnabled(true);
 
@@ -26,7 +29,11 @@ int main()
 
 		if (mainMenu.active) {
 			mainMenu.draw(window);
-		}		
+		}
+
+		if (mainGame.active) {
+			mainGame.draw();
+		}
 
 		window.display();
 
