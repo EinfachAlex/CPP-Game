@@ -25,19 +25,21 @@ int main()
 				window.close();
 		}
 
-		window.clear();
+		if (window.hasFocus()) {
+			window.clear();
 
-		if (mainMenu.active) {
-			mainMenu.draw(window);
+			if (mainMenu.active) {
+				mainMenu.draw(window);
+			}
+
+			if (mainGame.active) {
+				mainGame.draw();
+			}
+
+			window.display();
+
+			calculateFPS();
 		}
-
-		if (mainGame.active) {
-			mainGame.draw();
-		}
-
-		window.display();
-
-		calculateFPS();
 	}
 
 	return 0;
