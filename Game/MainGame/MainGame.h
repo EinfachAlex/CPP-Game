@@ -3,13 +3,14 @@
 #include <nlohmann/json.hpp>
 #include <fstream>
 #include <iostream>
+#include "GameState.h"
 
 class MainGame
 {
 public:
 	static bool active;
-	nlohmann::json gameState;
-	std::ifstream saveGame;
+	static GameState * gameState;
+	std::ifstream savedGameStateFile;
 
 	MainGame();
 	void initialize();
