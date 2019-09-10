@@ -1,5 +1,12 @@
 #include "GameWorld.h"
 #include <iostream>
+#include <SFML/Graphics.hpp>
+#include <nlohmann/json.hpp>
+#include "Blocks/WorldBlockCoordinates.h"
+#include "Blocks/WorldBlock.h"
+
+std::ifstream worldFile;
+WorldBlock* blocks[100][100];
 
 void GameWorld::loadWorld(int worldID)
 {
@@ -11,25 +18,44 @@ void GameWorld::loadWorld(int worldID)
 		nlohmann::json jsonWorld = nlohmann::json::parse(fileContent);
 
 		//Iterate over JSON, (Y)
-		for (size_t i = 0; i <= (jsonWorld.size() - 1); i++)
+		for (size_t y = 0; y <= (jsonWorld.size() - 1); y++)
 		{
 			try
 			{
-				nlohmann::json jsonWorldX = jsonWorld[std::to_string(i + 1)];
+				nlohmann::json jsonWorldX = jsonWorld[std::to_string(y + 1)];
+				std::cout << "Y: " << y + 1 << '\n';
 
 				//Iterate over JSON, (X)
-				for (size_t j = 0; j <= (jsonWorldX.size() - 1); j++)
+				for (size_t x = 0; x <= (jsonWorldX.size() - 1); x++)
 				{
-					std::cout << "X: " << i << jsonWorldX[std::to_string(i)] << '\n';
+					//std::cout << "X: " << x + 1 << jsonWorldX[std::to_string(x + 1)] << '\n';
 
-					WorldBlock* worldBlock = new WorldBlock(i + j + i + j);
+					WorldBlock* worldBlock = new WorldBlock(WorldBlockCoordinates(x, y));
 
-					this->blocks[i][j] = worldBlock;
+					this->blocks[y][x] = worldBlock;
 				}
 			}
 			catch (const std::exception& exception)
 			{
 				std::cout << exception.what();
+			}
+		}
+	}
+
+	std::cout << "Fertig!";
+}
+
+void GameWorld::draw(sf::RenderWindow& window) {
+	for (size_t y = 0; y < 100; y++)
+	{
+		for (size_t x = 0; x < 100; x++)
+		{
+			if (this->blocks[y][x] != NULL) {
+				WorldBlock wb = *this->blocks[y][x];
+
+				wb.block->setPosition(sf::Vector2f((wb.coordinates.x * wb.block->getSize().x), (wb.coordinates.y * wb.block->getSize().y)));
+
+				window.draw(*blocks[y][x]->block);
 			}
 		}
 	}
