@@ -10,28 +10,28 @@ MainMenu::MainMenu(sf::RenderWindow* window) {
 	const_cast<sf::Texture&>(font.getTexture(30)).generateMipmap();
 
 	sf::Vector2f position = sf::Vector2f(static_cast<float> ((*this->window).getSize().x / 2), 100.0f);
-	startButton = new MainMenuStartButton(sf::Vector2f(300.0f, 100.0f), sf::Text("Spiel starten...!", font, 30), *this->window, position, this);
+	startButton = MainMenuStartButton(sf::Vector2f(300.0f, 100.0f), sf::Text("Spiel starten...!", font, 30), *this->window, position, this);
 
 	position = sf::Vector2f(static_cast<float> ((*this->window).getSize().x / 2), 200.0f);
-	middleButton = new MainMenuMiddleButton(sf::Vector2f(300.0f, 100.0f), sf::Text("Irgendwas hier!", font, 30), *this->window, position, this);
+	middleButton = MainMenuMiddleButton(sf::Vector2f(300.0f, 100.0f), sf::Text("Irgendwas hier!", font, 30), *this->window, position, this);
 
 	position = sf::Vector2f(static_cast<float> ((*this->window).getSize().x / 2), 300.0f);
-	endButton = new MainMenuEndButton(sf::Vector2f(300.0f, 100.0f), sf::Text("Spiel beenden!", font, 30), *this->window, position, this);
+	endButton = MainMenuEndButton(sf::Vector2f(300.0f, 100.0f), sf::Text("Spiel beenden!", font, 30), *this->window, position, this);
 
-	activeButton = startButton;
+	activeButton = &startButton;
 	activeButton->highlight();
 }
 
-void MainMenu::draw(sf::RenderWindow& window) {
+void MainMenu::draw() {
 	//elapsed = menuClock.getElapsedTime();
 
 	checkForKeyPress();
-	window.draw(startButton->shape);
-	window.draw(startButton->text);
-	window.draw(middleButton->shape);
-	window.draw(middleButton->text);
-	window.draw(endButton->shape);
-	window.draw(endButton->text);
+	this->window->draw(startButton.shape);
+	this->window->draw(startButton.text);
+	this->window->draw(middleButton.shape);
+	this->window->draw(middleButton.text);
+	this->window->draw(endButton.shape);
+	this->window->draw(endButton.text);
 }
 
 void MainMenu::checkForKeyPress() {
@@ -63,17 +63,17 @@ void MainMenu::setActiveButton(MainMenuButton& IactiveButton)
 
 MainMenuStartButton& MainMenu::getStartButton()
 {
-	return *startButton;
+	return startButton;
 }
 
 MainMenuMiddleButton& MainMenu::getMiddleButton()
 {
-	return *middleButton;
+	return middleButton;
 }
 
 MainMenuEndButton& MainMenu::getEndButton()
 {
-	return *endButton;
+	return endButton;
 }
 
 MainMenuButton& MainMenu::getActiveButton()

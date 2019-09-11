@@ -7,9 +7,9 @@
 class MainMenu
 {
 private: 
-	 MainMenuStartButton* startButton;
-	 MainMenuMiddleButton* middleButton;
-	 MainMenuEndButton* endButton;
+	 MainMenuStartButton startButton;
+	 MainMenuMiddleButton middleButton;
+	 MainMenuEndButton endButton;
 	 MainMenuButton* activeButton;
 
 	sf::RenderWindow* window;
