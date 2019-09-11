@@ -4,9 +4,18 @@
 #include <nlohmann/json.hpp>
 #include "Blocks/WorldBlockCoordinates.h"
 #include "Blocks/WorldBlock.h"
+#include <thread>
 
 std::ifstream worldFile;
 WorldBlock* blocks[100][100];
+
+GameWorld::GameWorld() {
+
+}
+
+GameWorld::GameWorld(sf::RenderWindow* window) {
+	this->window = window;
+}
 
 void GameWorld::loadWorld(int worldID)
 {

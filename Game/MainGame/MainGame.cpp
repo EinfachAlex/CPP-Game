@@ -5,14 +5,20 @@
 #include "GameState.h"
 #include "../MainMenu/MainMenu.h"
 #include "World/GameWorld.h"
+#include <SFML/Graphics.hpp>
 
 bool MainGame::active = false;
 GameState * MainGame::gameState;
 GameWorld * MainGame::gameWorld;
+sf::RenderWindow* MainGame::window;
 
-MainGame::MainGame()
+MainGame::MainGame() {
+
+}
+
+MainGame::MainGame(sf::RenderWindow* window)
 {
-
+	this->window = window;
 }
 
 void MainGame::initialize()
@@ -22,16 +28,8 @@ void MainGame::initialize()
 	}
 	else {
 		std::cout << this->gameState->getName() << '\n';
-		this->gameWorld = new GameWorld();
+		this->gameWorld = new GameWorld(this->window);
 		this->gameWorld->loadWorld(1);
-		for (size_t i = 0; i < 10; i++)
-		{
-			for (size_t j = 0; j < 10; j++)
-			{
-				if (this->gameWorld->blocks[i][j]) {
-				}
-			}
-		}
 	}
 
 	this->active = true;
@@ -63,4 +61,5 @@ void MainGame::startNewGame()
 
 void MainGame::draw() {
 	//this->gameState["color"];
+	this->gameWorld->draw();
 }

@@ -12,9 +12,9 @@ int main()
 
 	MainMenu mainMenu = MainMenu(&window);
 
-	MainGame mainGame = MainGame();
+	MainGame mainGame = MainGame(&window);
 
-	window.setVerticalSyncEnabled(true);
+	//window.setVerticalSyncEnabled(true);
 
 	while (window.isOpen())
 	{
@@ -29,7 +29,7 @@ int main()
 			window.clear();
 
 			if (mainMenu.active) {
-				mainMenu.draw(window);
+				mainMenu.draw();
 			}
 
 			if (mainGame.active) {

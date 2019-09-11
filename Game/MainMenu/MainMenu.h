@@ -18,7 +18,7 @@ private:
 public: 
 	static bool active;
 	MainMenu(sf::RenderWindow* window);
-	void draw(sf::RenderWindow& window);
+	void draw();
 	void checkForKeyPress();
 	void setActiveButton(MainMenuButton& IactiveButton);
 
