@@ -8,12 +8,10 @@
 #include <SFML/Graphics.hpp>
 
 bool MainGame::active = false;
-GameState * MainGame::gameState;
-GameWorld * MainGame::gameWorld;
-sf::RenderWindow* MainGame::window;
+GameState* MainGame::gameState;
+GameWorld MainGame::gameWorld;
 
 MainGame::MainGame() {
-
 }
 
 MainGame::MainGame(sf::RenderWindow* window)
@@ -28,8 +26,7 @@ void MainGame::initialize()
 	}
 	else {
 		std::cout << this->gameState->getName() << '\n';
-		this->gameWorld = new GameWorld(this->window);
-		this->gameWorld->loadWorld(1);
+		MainGame::gameWorld.loadWorld(1);
 	}
 
 	this->active = true;
@@ -61,5 +58,5 @@ void MainGame::startNewGame()
 
 void MainGame::draw() {
 	//this->gameState["color"];
-	this->gameWorld->draw();
+	MainGame::gameWorld.draw(*this->window);
 }

@@ -11,9 +11,9 @@ class MainGame
 {
 public:
 	static bool active;
-	static GameState * gameState;
-	static GameWorld * gameWorld;
-	static sf::RenderWindow* window;
+	static GameState* gameState;
+	static GameWorld gameWorld;
+	sf::RenderWindow* window;
 	std::ifstream savedGameStateFile;
 
 	MainGame();

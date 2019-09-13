@@ -6,9 +6,6 @@
 #include "Blocks/WorldBlock.h"
 #include <thread>
 
-std::ifstream worldFile;
-WorldBlock* blocks[100][100];
-
 GameWorld::GameWorld() {
 
 }
@@ -50,8 +47,21 @@ void GameWorld::loadWorld(int worldID)
 			}
 		}
 	}
+	this->vertexArray.setPrimitiveType(sf::Quads);
+	this->vertexArray.resize(10000);
 
-	std::cout << "Fertig!";
+	sf::Vertex* quad = &this->vertexArray[0];
+	quad[0].position = sf::Vector2f(0, 0);
+	quad[0].color = sf::Color::Yellow;
+
+	quad[1].position = sf::Vector2f(64, 0);
+	quad[1].color = sf::Color::Red;
+
+	quad[2].position = sf::Vector2f(64, 64);
+	quad[2].color = sf::Color::Green;
+
+	quad[3].position = sf::Vector2f(0, 64);
+	quad[3].color = sf::Color::Cyan;
 }
 
 void GameWorld::draw(sf::RenderWindow& window) {
@@ -68,4 +78,6 @@ void GameWorld::draw(sf::RenderWindow& window) {
 			}
 		}
 	}
+
+	window.draw(this->vertexArray);
 }

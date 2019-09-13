@@ -8,13 +8,15 @@
 
 class GameWorld
 {
-private:
-	std::ifstream worldFile;
-	sf::RenderWindow* window;
 public:
-	GameWorld();
-	GameWorld(sf::RenderWindow* window);
 	WorldBlock* blocks[99][99];
+	sf::VertexArray vertexArray;
+
+	GameWorld();
 	void loadWorld(int);
-	void draw();
+	void draw(sf::RenderWindow& window);
+private:
+	//std::ifstream worldFile;
+	sf::RenderWindow* window;
+	sf::Texture texture;
 };
