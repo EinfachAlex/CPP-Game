@@ -6,10 +6,14 @@
 class WorldBlock
 {
 public:
+	WorldBlockCoordinates coordinates;
+	sf::RectangleShape block;
+
 	WorldBlock();
 	WorldBlock(WorldBlockCoordinates coordinates);
-	WorldBlockCoordinates coordinates;
-	sf::RectangleShape * block;
+
+	~WorldBlock();
+	
 private:
 	
 };
