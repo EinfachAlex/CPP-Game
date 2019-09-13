@@ -1,8 +1,5 @@
 #include "WorldBlockCoordinates.h"
 
-int x;
-int y;
-
 WorldBlockCoordinates::WorldBlockCoordinates() {
 
 }
