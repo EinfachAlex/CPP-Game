@@ -4,19 +4,23 @@
 #include "Blocks/WorldBlockCoordinates.h"
 #include <fstream>
 #include <nlohmann/json.hpp>
-#include <SFML/Graphics.hpp>
+#include <SFML/Graphics/VertexArray.hpp>
+#include <SFML/Graphics/Texture.hpp>
+#include <SFML/Graphics/RenderWindow.hpp>
 
 class GameWorld
 {
 public:
-	WorldBlock* blocks[99][99];
+	WorldBlock blocks[100][100];
 	sf::VertexArray vertexArray;
 
-	GameWorld();
 	void loadWorld(int);
 	void draw(sf::RenderWindow& window);
 private:
 	//std::ifstream worldFile;
 	sf::RenderWindow* window;
 	sf::Texture texture;
+	int blockSize = 32;
+
+	void loadWorldPart(int, int);
 };

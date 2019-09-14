@@ -1,18 +1,52 @@
 #include "GameWorld.h"
 #include <iostream>
+#include <chrono>
 #include <thread>
 
-GameWorld::GameWorld() {
+void GameWorld::loadWorldPart(int tn, int threadForLoopLength) {
+	std::chrono::time_point<std::chrono::system_clock> tstart = std::chrono::system_clock::now();
+
+	int offset = tn * threadForLoopLength + tn;
+
+	for (size_t x = offset; x <= offset + threadForLoopLength; x++)
+	{
+		//std::cout << "Loading " << offset + x << '\n';
+		for (size_t y = 0; y < 9; y++)
+		{
+			WorldBlock wb = WorldBlock(WorldBlockCoordinates(x, y));
+			this->blocks[x][y] = wb;
+
+			//std::cout << "Drawing " << x << " / " << y << " - VertexOffset: " << ((y + (x * 9)) * 4) << '\n';
+
+			sf::Vertex* quad = &this->vertexArray[(y + (x * 9)) * 4];
+
+			quad[0].position = sf::Vector2f(wb.coordinates.x * blockSize, wb.coordinates.y * blockSize);
+			quad[0].color = sf::Color::Yellow;
+
+			quad[1].position = sf::Vector2f(wb.coordinates.x * blockSize + blockSize, wb.coordinates.y * blockSize + 0);
+			quad[1].color = sf::Color::Red;
+
+			quad[2].position = sf::Vector2f(wb.coordinates.x * blockSize + blockSize, wb.coordinates.y * blockSize + blockSize);
+			quad[2].color = sf::Color::Green;
+
+			quad[3].position = sf::Vector2f(wb.coordinates.x * blockSize + 0, wb.coordinates.y * blockSize + blockSize);
+			quad[3].color = sf::Color::Cyan;
+		}
+	}
+
+	std::chrono::time_point<std::chrono::system_clock> tend = std::chrono::system_clock::now();
+	auto timePassed = std::chrono::duration_cast<std::chrono::milliseconds>(tend - tstart);
+	std::cout << "Thread " << tn << " finished (in " << timePassed.count() << " ms.\n";
 
 }
-
-GameWorld::GameWorld(sf::RenderWindow* window) {
-	this->window = window;
-}
-
 void GameWorld::loadWorld(int worldID)
 {
-	this->worldFile.open(std::to_string(worldID) + ".json");
+	this->vertexArray.setPrimitiveType(sf::Quads);
+	this->vertexArray.resize(40000);
+
+	int numberOfThreads = 11; //std::thread::hardware_concurrency() / 2 * 1.5;
+	int threadForLoopLength = 99 / numberOfThreads;
+
 
 	for (size_t x = 0; x < numberOfThreads -1; x++)
 	{
@@ -55,7 +89,6 @@ void GameWorld::loadWorld(int worldID)
 
 	//std::cout << "Drecks Welt zu laden hat " << std::to_string(timePassed.count()) << "ms gedauert, du Hurensohn\n";
 
-	//ToDo: objekt f�r jedes ding dann vertex vom objekt nehmen und in vertexarray packen 
 	/*for (size_t a = 0; a < 50000; a++)
 	{
 		this->vertexArray[a] = dummy[a];
