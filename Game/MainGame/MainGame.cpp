@@ -1,11 +1,4 @@
 #include "MainGame.h"
-#include <nlohmann/json.hpp>
-#include <fstream>
-#include <iostream>
-#include "GameState.h"
-#include "../MainMenu/MainMenu.h"
-#include "World/GameWorld.h"
-#include <SFML/Graphics.hpp>
 
 bool MainGame::active = false;
 GameState* MainGame::gameState;
