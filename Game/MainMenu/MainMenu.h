@@ -3,6 +3,7 @@
 #include "Buttons/MainMenuStartButton.h"
 #include "Buttons/MainMenuMiddleButton.h"
 #include "Buttons/MainMenuEndButton.h"
+#include "SFML/Window/Keyboard.hpp"
 
 class MainMenu
 {

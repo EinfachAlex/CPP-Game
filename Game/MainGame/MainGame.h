@@ -5,7 +5,7 @@
 #include <iostream>
 #include "GameState.h"
 #include "World/GameWorld.h"
-#include <SFML/Graphics.hpp>
+#include <SFML/Graphics/RenderWindow.hpp>
 
 class MainGame
 {

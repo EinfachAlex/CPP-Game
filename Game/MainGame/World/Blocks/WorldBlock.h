@@ -1,7 +1,7 @@
 #pragma once
 
 #include "WorldBlockCoordinates.h"
-#include "SFML/Graphics.hpp"
+#include "SFML/Graphics/RectangleShape.hpp"
 
 class WorldBlock
 {
