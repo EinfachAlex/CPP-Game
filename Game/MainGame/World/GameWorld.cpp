@@ -13,6 +13,12 @@ void GameWorld::loadWorldPart(int tn, int threadForLoopLength) {
 		//std::cout << "Loading " << offset + x << '\n';
 		for (size_t y = 0; y < 9; y++)
 		{
+
+			int tileNumber = level[x * 9 + y];
+
+			int tx = tileNumber % (this->texture.getSize().x / this->blockSize);
+			int ty = tileNumber / (this->texture.getSize().x / this->blockSize);
+
 			WorldBlock wb = WorldBlock(WorldBlockCoordinates(x, y));
 			this->blocks[x][y] = wb;
 
@@ -21,16 +27,14 @@ void GameWorld::loadWorldPart(int tn, int threadForLoopLength) {
 			sf::Vertex* quad = &this->vertexArray[(y + (x * 9)) * 4];
 
 			quad[0].position = sf::Vector2f(wb.coordinates.x * blockSize, wb.coordinates.y * blockSize);
-			quad[0].color = sf::Color::Yellow;
-
 			quad[1].position = sf::Vector2f(wb.coordinates.x * blockSize + blockSize, wb.coordinates.y * blockSize + 0);
-			quad[1].color = sf::Color::Red;
-
 			quad[2].position = sf::Vector2f(wb.coordinates.x * blockSize + blockSize, wb.coordinates.y * blockSize + blockSize);
-			quad[2].color = sf::Color::Green;
-
 			quad[3].position = sf::Vector2f(wb.coordinates.x * blockSize + 0, wb.coordinates.y * blockSize + blockSize);
-			quad[3].color = sf::Color::Cyan;
+
+			quad[0].texCoords = sf::Vector2f((tx * this->blockSize), (ty * this->blockSize));
+			quad[1].texCoords = sf::Vector2f(((tx + 1) * this->blockSize), (ty * this->blockSize));
+			quad[2].texCoords = sf::Vector2f(((tx + 1) * this->blockSize), ((ty + 1) * this->blockSize));
+			quad[3].texCoords = sf::Vector2f((tx * this->blockSize), ((ty + 1) * this->blockSize));
 		}
 	}
 
@@ -41,6 +45,8 @@ void GameWorld::loadWorldPart(int tn, int threadForLoopLength) {
 }
 void GameWorld::loadWorld(int worldID)
 {
+	this->texture.loadFromFile("tileset.png");
+
 	this->vertexArray.setPrimitiveType(sf::Quads);
 	this->vertexArray.resize(40000);
 
@@ -48,10 +54,10 @@ void GameWorld::loadWorld(int worldID)
 	int threadForLoopLength = 99 / numberOfThreads;
 
 
-	for (size_t x = 0; x < numberOfThreads -1; x++)
+	for (size_t x = 0; x < numberOfThreads - 1; x++)
 	{
 		std::thread t1 = std::thread(&GameWorld::loadWorldPart, this, static_cast<int>(x), threadForLoopLength);
-		t1.join();
+		t1.detach();
 	}
 
 	/*for (size_t i = 0; i < numberOfThreads; i++)
@@ -190,6 +196,9 @@ void GameWorld::draw(sf::RenderWindow& window) {
 		this->vertexArray[a].color.r = this->vertexArray[a].color.r + 1;
 		std::cout << this->vertexArray[a].color.toInteger();
 	}*/
+	sf::RenderStates rs;
+	rs.texture = &this->texture;
+	rs.transform = sf::Transform(1, 0, 0, 0, 1, 0, 0, 0, 1);
 
-	window.draw(this->vertexArray);
+	window.draw(this->vertexArray, rs);
 }

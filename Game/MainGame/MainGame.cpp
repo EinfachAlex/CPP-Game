@@ -18,6 +18,8 @@ void MainGame::initialize()
 		startNewGame();
 	}
 	else {
+		MainGame::gameWorld = *new GameWorld();
+
 		std::cout << this->gameState->getName() << '\n';
 		MainGame::gameWorld.loadWorld(1);
 	}
