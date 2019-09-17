@@ -11,7 +11,7 @@ void GameWorld::loadWorldPart(int tn, int threadForLoopLength) {
 	for (size_t x = offset; x <= offset + threadForLoopLength; x++)
 	{
 		//std::cout << "Loading " << offset + x << '\n';
-		for (size_t y = 0; y < 9; y++)
+		for (size_t y = 0; y < 99; y++)
 		{
 
 			int tileNumber = level[x * 9 + y];
@@ -24,7 +24,7 @@ void GameWorld::loadWorldPart(int tn, int threadForLoopLength) {
 
 			//std::cout << "Drawing " << x << " / " << y << " - VertexOffset: " << ((y + (x * 9)) * 4) << '\n';
 
-			sf::Vertex* quad = &this->vertexArray[(y + (x * 9)) * 4];
+			sf::Vertex* quad = &this->vertexArray[(y + (x * 99)) * 4];
 
 			quad[0].position = sf::Vector2f(wb.coordinates.x * blockSize, wb.coordinates.y * blockSize);
 			quad[1].position = sf::Vector2f(wb.coordinates.x * blockSize + blockSize, wb.coordinates.y * blockSize + 0);
