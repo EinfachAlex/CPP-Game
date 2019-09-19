@@ -1,8 +1,6 @@
 #pragma once
 #include "MainMenuButton.h"
 
-using namespace std;
-
 class MainMenu;
 
 class MainMenuEndButton : public MainMenuButton {

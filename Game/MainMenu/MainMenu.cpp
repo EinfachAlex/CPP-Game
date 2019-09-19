@@ -1,6 +1,16 @@
 #include "MainMenu.h"
+#include "..//GameWindow.h"
 
 bool MainMenu::active = true;
+MainMenu* MainMenu::instance;
+
+MainMenu* MainMenu::getInstance() {
+	if (&MainMenu::instance == NULL) {
+		MainMenu::instance = new MainMenu(GameWindow::getInstance());
+	}
+
+	return MainMenu::instance;
+}
 
 MainMenu::MainMenu(sf::RenderWindow* window) {
 	this->window = window;

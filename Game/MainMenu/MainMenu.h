@@ -7,21 +7,25 @@
 
 class MainMenu
 {
-private: 
-	 MainMenuStartButton startButton;
-	 MainMenuMiddleButton middleButton;
-	 MainMenuEndButton endButton;
-	 MainMenuButton* activeButton;
+private:
+	MainMenuStartButton startButton;
+	MainMenuMiddleButton middleButton;
+	MainMenuEndButton endButton;
+	MainMenuButton* activeButton;
+
+	static MainMenu* instance;
 
 	sf::RenderWindow* window;
 	sf::Font font;
 
-public: 
+public:
 	static bool active;
 	MainMenu(sf::RenderWindow* window);
 	void draw();
 	void checkForKeyPress();
 	void setActiveButton(MainMenuButton& IactiveButton);
+
+	static MainMenu* getInstance();
 
 	MainMenuStartButton& getStartButton();
 	MainMenuMiddleButton& getMiddleButton();

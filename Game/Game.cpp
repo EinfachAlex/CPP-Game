@@ -4,10 +4,12 @@
 #include "desktopResolution.h"
 #include "MainMenu/MainMenu.h"
 #include "MainGame/MainGame.h"
+#include "GameWindow.h"
+
 
 int main()
 {
-	sf::RenderWindow window(sf::VideoMode((getDesktopResolution().right / 2), (getDesktopResolution().bottom) / 2), "SFML works!");
+	GameWindow& window = *GameWindow::getInstance(sf::VideoMode((getDesktopResolution().right / 2), (getDesktopResolution().bottom) / 2), "SFML works!");
 
 	MainMenu mainMenu = MainMenu(&window);
 
