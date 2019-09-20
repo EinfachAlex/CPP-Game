@@ -8,23 +8,32 @@ void GameWorld::loadWorldPart(int tn, int threadForLoopLength) {
 
 	int offset = tn * threadForLoopLength + tn;
 
-	for (size_t x = offset; x <= offset + threadForLoopLength; x++)
+	for (size_t y = offset; y <= offset + threadForLoopLength; y++)
 	{
-		//std::cout << "Loading " << offset + x << '\n';
-		for (size_t y = 0; y < 99; y++)
+		//std::cout << "Loading " << y << '\n';
+		for (size_t x = 0; x < this->worldData["width"]; x++)
 		{
+			int tileID;
 
-			int tileNumber = level[x * 9 + y];
+			try
+			{
+				tileID = this->worldData["data"][(x + (y * this->worldData["height"]))];
+			}
+			catch (const std::exception& err)
+			{
+				std::cout << err.what();
+			}
 
-			int tx = tileNumber % (this->texture.getSize().x / this->blockSize);
-			int ty = tileNumber / (this->texture.getSize().x / this->blockSize);
+
+			int tx = tileID % (this->texture.getSize().x / this->blockSize) - 1;
+			int ty = tileID / (this->texture.getSize().x / this->blockSize);
 
 			WorldBlock wb = WorldBlock(WorldBlockCoordinates(x, y));
 			this->blocks[x][y] = wb;
 
 			//std::cout << "Drawing " << x << " / " << y << " - VertexOffset: " << ((y + (x * 9)) * 4) << '\n';
 
-			sf::Vertex* quad = &this->vertexArray[(y + (x * 99)) * 4];
+			sf::Vertex* quad = &this->vertexArray[(x + (y * this->worldData["height"])) * 4];
 
 			quad[0].position = sf::Vector2f(wb.coordinates.x * blockSize, wb.coordinates.y * blockSize);
 			quad[1].position = sf::Vector2f(wb.coordinates.x * blockSize + blockSize, wb.coordinates.y * blockSize + 0);
@@ -41,8 +50,8 @@ void GameWorld::loadWorldPart(int tn, int threadForLoopLength) {
 	std::chrono::time_point<std::chrono::system_clock> tend = std::chrono::system_clock::now();
 	auto timePassed = std::chrono::duration_cast<std::chrono::milliseconds>(tend - tstart);
 	std::cout << "Thread " << tn << " finished (in " << timePassed.count() << " ms.\n";
-
 }
+
 void GameWorld::loadWorld(int worldID)
 {
 	this->texture.loadFromFile("tileset.png");
@@ -50,15 +59,25 @@ void GameWorld::loadWorld(int worldID)
 	this->vertexArray.setPrimitiveType(sf::Quads);
 	this->vertexArray.resize(40000);
 
-	int numberOfThreads = 11; //std::thread::hardware_concurrency() / 2 * 1.5;
-	int threadForLoopLength = 99 / numberOfThreads;
+	std::ifstream worldFile;
+	worldFile.open(std::to_string(worldID) + ".json");
 
+	if (worldFile.is_open()) {
+		//Convert contents of file to string and create json object
+		std::string fileContent((std::istreambuf_iterator<char>(worldFile)), std::istreambuf_iterator<char>());
+		this->worldData = nlohmann::json::parse(fileContent)["layers"][0];
 
-	for (size_t x = 0; x < numberOfThreads - 1; x++)
-	{
-		std::thread t1 = std::thread(&GameWorld::loadWorldPart, this, static_cast<int>(x), threadForLoopLength);
-		t1.detach();
+		int numberOfThreads = 2; //std::thread::hardware_concurrency() / 2 * 1.5;
+		int threadForLoopLength = (this->worldData["height"] - 1) / numberOfThreads;
+
+		for (size_t y = 0; y < numberOfThreads; y++)
+		{
+			std::thread t1 = std::thread(&GameWorld::loadWorldPart, this, static_cast<int>(y), threadForLoopLength);
+			t1.detach();
+		}
 	}
+}
+
 
 	/*for (size_t i = 0; i < numberOfThreads; i++)
 	{

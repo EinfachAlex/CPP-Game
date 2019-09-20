@@ -17,10 +17,11 @@ public:
 	void loadWorld(int);
 	void draw(sf::RenderWindow& window);
 private:
-	//std::ifstream worldFile;
 	sf::RenderWindow* window;
 	sf::Texture texture;
-	int blockSize = 32;
+	int blockSize = 64;
+
+	nlohmann::json worldData;
 
 	void loadWorldPart(int, int);
 };
