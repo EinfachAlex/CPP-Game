@@ -18,38 +18,38 @@ void GameWorld::loadWorldPart(int tn, int threadForLoopLength) {
 			try
 			{
 				tileID = this->worldData["data"][(x + (y * this->worldData["height"]))];
+
+
+				int tx = tileID % (this->texture.getSize().x / this->blockSize) - 1;
+				int ty = tileID / (this->texture.getSize().x / this->blockSize);
+
+				WorldBlock wb = WorldBlock(WorldBlockCoordinates(x, y));
+				this->blocks[x][y] = wb;
+
+				//std::cout << "Drawing " << x << " / " << y << " - VertexOffset: " << ((y + (x * 9)) * 4) << '\n';
+
+				sf::Vertex* quad = &this->vertexArray[(x + (y * this->worldData["height"])) * 4];
+
+				quad[0].position = sf::Vector2f(wb.coordinates.x * blockSize, wb.coordinates.y * blockSize);
+				quad[1].position = sf::Vector2f(wb.coordinates.x * blockSize + blockSize, wb.coordinates.y * blockSize + 0);
+				quad[2].position = sf::Vector2f(wb.coordinates.x * blockSize + blockSize, wb.coordinates.y * blockSize + blockSize);
+				quad[3].position = sf::Vector2f(wb.coordinates.x * blockSize + 0, wb.coordinates.y * blockSize + blockSize);
+
+				quad[0].texCoords = sf::Vector2f((tx * this->blockSize), (ty * this->blockSize));
+				quad[1].texCoords = sf::Vector2f(((tx + 1) * this->blockSize), (ty * this->blockSize));
+				quad[2].texCoords = sf::Vector2f(((tx + 1) * this->blockSize), ((ty + 1) * this->blockSize));
+				quad[3].texCoords = sf::Vector2f((tx * this->blockSize), ((ty + 1) * this->blockSize));
 			}
 			catch (const std::exception& err)
 			{
-				std::cout << err.what();
+
 			}
-
-
-			int tx = tileID % (this->texture.getSize().x / this->blockSize) - 1;
-			int ty = tileID / (this->texture.getSize().x / this->blockSize);
-
-			WorldBlock wb = WorldBlock(WorldBlockCoordinates(x, y));
-			this->blocks[x][y] = wb;
-
-			//std::cout << "Drawing " << x << " / " << y << " - VertexOffset: " << ((y + (x * 9)) * 4) << '\n';
-
-			sf::Vertex* quad = &this->vertexArray[(x + (y * this->worldData["height"])) * 4];
-
-			quad[0].position = sf::Vector2f(wb.coordinates.x * blockSize, wb.coordinates.y * blockSize);
-			quad[1].position = sf::Vector2f(wb.coordinates.x * blockSize + blockSize, wb.coordinates.y * blockSize + 0);
-			quad[2].position = sf::Vector2f(wb.coordinates.x * blockSize + blockSize, wb.coordinates.y * blockSize + blockSize);
-			quad[3].position = sf::Vector2f(wb.coordinates.x * blockSize + 0, wb.coordinates.y * blockSize + blockSize);
-
-			quad[0].texCoords = sf::Vector2f((tx * this->blockSize), (ty * this->blockSize));
-			quad[1].texCoords = sf::Vector2f(((tx + 1) * this->blockSize), (ty * this->blockSize));
-			quad[2].texCoords = sf::Vector2f(((tx + 1) * this->blockSize), ((ty + 1) * this->blockSize));
-			quad[3].texCoords = sf::Vector2f((tx * this->blockSize), ((ty + 1) * this->blockSize));
 		}
 	}
 
 	std::chrono::time_point<std::chrono::system_clock> tend = std::chrono::system_clock::now();
 	auto timePassed = std::chrono::duration_cast<std::chrono::milliseconds>(tend - tstart);
-	std::cout << "Thread " << tn << " finished (in " << timePassed.count() << " ms.\n";
+	std::cout << "Thread " << tn << " finished (in " << timePassed.count() << " ms)\n";
 }
 
 void GameWorld::loadWorld(int worldID)
@@ -67,7 +67,7 @@ void GameWorld::loadWorld(int worldID)
 		std::string fileContent((std::istreambuf_iterator<char>(worldFile)), std::istreambuf_iterator<char>());
 		this->worldData = nlohmann::json::parse(fileContent)["layers"][0];
 
-		int numberOfThreads = 2; //std::thread::hardware_concurrency() / 2 * 1.5;
+		int numberOfThreads = 1; //std::thread::hardware_concurrency() / 2 * 1.5;
 		int threadForLoopLength = (this->worldData["height"] - 1) / numberOfThreads;
 
 		for (size_t y = 0; y < numberOfThreads; y++)
@@ -119,51 +119,8 @@ void GameWorld::loadWorld(int worldID)
 		this->vertexArray[a] = dummy[a];
 	}
 
-	this->vertexArray.append(sf::RectangleShape(sf::Vector2f(1.0f, 1.0f)));*/
 
-	/*this->worldFile.open(std::to_string(worldID) + ".json");
-
-	if (this->worldFile.is_open()) {
-		//Convert contents of file to string and create json object
-		std::string fileContent((std::istreambuf_iterator<char>(this->worldFile)), std::istreambuf_iterator<char>());
-		nlohmann::json jsonWorld = nlohmann::json::parse(fileContent);
-
-		//Iterate over JSON, (Y)
-		for (size_t y = 0; y <= (jsonWorld.size() - 1); y++)
-		{
-			try
-			{
-				nlohmann::json jsonWorldX = jsonWorld[std::to_string(y + 1)];
-				std::cout << "Y: " << y + 1 << '\n';
-
-				//Iterate over JSON, (X)
-				for (size_t x = 0; x <= (jsonWorldX.size() - 1); x++)
-				{
-					//std::cout << "X: " << x + 1 << jsonWorldX[std::to_string(x + 1)] << '\n';
-
-					WorldBlock* worldBlock = new WorldBlock(WorldBlockCoordinates(x, y));
-
-					this->blocks[y][x] = worldBlock;
-				}
-			}
-			catch (const std::exception& exception)
-			{
-				std::cout << exception.what();
-			}
-		}
-	}
-	for (size_t y = 0; y < 99; y++)
-	{
-		for (size_t x = 0; x < 99; x++)
-		{
-			WorldBlock* worldBlock = new WorldBlock(WorldBlockCoordinates(x, y));
-
-			this->blocks[y][x] = worldBlock;
-		}
-	}
-
-	std::cout << "Fertig!";*/
-}
+}*/
 
 void GameWorld::draw(sf::RenderWindow& window) {
 	/*for (size_t y = 0; y < 99; y++)
