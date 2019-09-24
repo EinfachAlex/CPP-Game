@@ -13,7 +13,8 @@ public:
 	static bool active;
 	static GameState* gameState;
 	static GameWorld gameWorld;
-	sf::RenderWindow* window;
+	static sf::View view;
+	static sf::RenderWindow* window;
 	std::ifstream savedGameStateFile;
 
 	MainGame();

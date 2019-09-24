@@ -3,6 +3,8 @@
 bool MainGame::active = false;
 GameState* MainGame::gameState;
 GameWorld MainGame::gameWorld;
+sf::View MainGame::view = sf::View::View(sf::Vector2f(500.0f, 500.0f), sf::Vector2f(1200.0f, 675.0f));
+sf::RenderWindow* MainGame::window;
 
 MainGame::MainGame() {
 }
@@ -14,6 +16,8 @@ MainGame::MainGame(sf::RenderWindow* window)
 
 void MainGame::initialize()
 {
+	this->window->setView(this->view);
+
 	if (!loadSaveGame()) {
 		startNewGame();
 	}
@@ -52,6 +56,5 @@ void MainGame::startNewGame()
 }
 
 void MainGame::draw() {
-	//this->gameState["color"];
 	MainGame::gameWorld.draw(*this->window);
 }
