@@ -13,6 +13,7 @@ MainMenu* MainMenu::getInstance() {
 }
 
 MainMenu::MainMenu(sf::RenderWindow* window) {
+
 	this->window = window;
 	font.loadFromFile("Terminus.ttf");
 
@@ -20,70 +21,75 @@ MainMenu::MainMenu(sf::RenderWindow* window) {
 	const_cast<sf::Texture&>(font.getTexture(30)).generateMipmap();
 
 	sf::Vector2f position = sf::Vector2f(static_cast<float> ((*this->window).getSize().x / 2), 100.0f);
-	startButton = MainMenuStartButton(sf::Vector2f(300.0f, 100.0f), sf::Text("Spiel starten...!", font, 30), *this->window, position, this);
+	this->startButton = new MainMenuStartButton(sf::Vector2f(300.0f, 100.0f), sf::Text("Spiel starten...!", font, 30), *this->window, position, this);
 
 	position = sf::Vector2f(static_cast<float> ((*this->window).getSize().x / 2), 200.0f);
-	middleButton = MainMenuMiddleButton(sf::Vector2f(300.0f, 100.0f), sf::Text("Irgendwas hier!", font, 30), *this->window, position, this);
+	this->middleButton = new MainMenuMiddleButton(sf::Vector2f(300.0f, 100.0f), sf::Text("Irgendwas hier!", font, 30), *this->window, position, this);
 
 	position = sf::Vector2f(static_cast<float> ((*this->window).getSize().x / 2), 300.0f);
-	endButton = MainMenuEndButton(sf::Vector2f(300.0f, 100.0f), sf::Text("Spiel beenden!", font, 30), *this->window, position, this);
+	this->endButton = new MainMenuEndButton(sf::Vector2f(300.0f, 100.0f), sf::Text("Spiel beenden!", font, 30), *this->window, position, this);
 
-	activeButton = &startButton;
-	activeButton->highlight();
+	this->activeButton = &(*this->startButton);
+	this->activeButton->highlight();
+}
+
+void MainMenu::loop() {
+	this->checkForKeyPress();
+	this->draw();
 }
 
 void MainMenu::draw() {
 	//elapsed = menuClock.getElapsedTime();
 
 	checkForKeyPress();
-	this->window->draw(startButton.shape);
-	this->window->draw(startButton.text);
-	this->window->draw(middleButton.shape);
-	this->window->draw(middleButton.text);
-	this->window->draw(endButton.shape);
-	this->window->draw(endButton.text);
+	this->window->draw(startButton->shape);
+	this->window->draw(startButton->text);
+	this->window->draw(middleButton->shape);
+	this->window->draw(middleButton->text);
+	this->window->draw(endButton->shape);
+	this->window->draw(endButton->text);
 }
 
 void MainMenu::checkForKeyPress() {
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W)) {
-		activeButton->onPressW();
+		this->activeButton->onPressW();
 	}
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A)) {
-		activeButton->onPressA();
+		this->activeButton->onPressA();
 	}
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S)) {
-		activeButton->onPressS();
+		this->activeButton->onPressS();
 	}
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D)) {
-		activeButton->onPressD();
+		this->activeButton->onPressD();
 	}
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Enter)) {
-		activeButton->onPressEnter();
+		this->activeButton->onPressEnter();
 	}
 }
 
 void MainMenu::setActiveButton(MainMenuButton& IactiveButton)
 {
-	activeButton = &IactiveButton;
+	this->activeButton = &IactiveButton;
 }
 
 MainMenuStartButton& MainMenu::getStartButton()
 {
-	return startButton;
+	return *startButton;
 }
 
 MainMenuMiddleButton& MainMenu::getMiddleButton()
 {
-	return middleButton;
+	return *middleButton;
 }
 
 MainMenuEndButton& MainMenu::getEndButton()
 {
-	return endButton;
+	return *endButton;
 }
 
 MainMenuButton& MainMenu::getActiveButton()

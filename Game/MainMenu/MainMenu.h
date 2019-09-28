@@ -8,9 +8,9 @@
 class MainMenu
 {
 private:
-	MainMenuStartButton startButton;
-	MainMenuMiddleButton middleButton;
-	MainMenuEndButton endButton;
+	MainMenuStartButton* startButton;
+	MainMenuMiddleButton* middleButton;
+	MainMenuEndButton* endButton;
 	MainMenuButton* activeButton;
 
 	static MainMenu* instance;
@@ -20,7 +20,9 @@ private:
 
 public:
 	static bool active;
+
 	MainMenu(sf::RenderWindow* window);
+	void loop();
 	void draw();
 	void checkForKeyPress();
 	void setActiveButton(MainMenuButton& IactiveButton);
