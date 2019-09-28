@@ -1,15 +1,15 @@
-#include "WorldBlock.h"
+#include "WorldTile.h"
 
-WorldBlock::WorldBlock() {
+WorldTile::WorldTile() {
 
 }
 
-WorldBlock::WorldBlock(WorldBlockCoordinates coordinates){
+WorldTile::WorldTile(WorldBlockCoordinates coordinates){
 	this->coordinates = coordinates;
 	this->block = sf::RectangleShape(sf::Vector2f(16.0f, 16.0f));
 	this->block.setFillColor(sf::Color::Red);
 }
 
-WorldBlock::~WorldBlock() {
+WorldTile::~WorldTile() {
 	//delete this->block;
 }

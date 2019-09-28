@@ -1,7 +1,8 @@
-#include "WorldBlockCoordinates.h"
+#include "TileCoordinates.h"
 
 WorldBlockCoordinates::WorldBlockCoordinates() {
-
+	this->x = 0;
+	this->y = 0;
 }
 
 WorldBlockCoordinates::WorldBlockCoordinates(int x, int y)

@@ -5,6 +5,7 @@ GameState* MainGame::gameState;
 GameWorld MainGame::gameWorld;
 sf::View MainGame::view = sf::View::View(sf::Vector2f(500.0f, 500.0f), sf::Vector2f(1200.0f, 675.0f));
 sf::RenderWindow* MainGame::window;
+MainGame* MainGame::instance;
 
 MainGame::MainGame() {
 }
@@ -25,6 +26,7 @@ void MainGame::initialize()
 		MainGame::gameWorld = *new GameWorld();
 
 		std::cout << this->gameState->getName() << '\n';
+
 		MainGame::gameWorld.loadWorld(1);
 	}
 
@@ -57,9 +59,17 @@ void MainGame::startNewGame()
 
 void MainGame::draw() {
 	MainGame::gameWorld.draw(*this->window);
+}
+
+void MainGame::loop() {
+	this->checkForKeyPress();
+	this->draw();
+}
+
 MainGame* MainGame::getInstance() {
 	if (MainGame::instance == NULL) {
 		MainGame::instance = new MainGame(GameWindow::getInstance());
 	}
+
 	return MainGame::instance;
 }

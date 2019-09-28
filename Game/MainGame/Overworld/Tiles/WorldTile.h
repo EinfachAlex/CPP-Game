@@ -1,18 +1,19 @@
 #pragma once
 
-#include "WorldBlockCoordinates.h"
+#include "TileCoordinates.h"
 #include "SFML/Graphics/RectangleShape.hpp"
+#include "TileCoordinates.h"
 
-class WorldBlock
+class WorldTile
 {
 public:
 	WorldBlockCoordinates coordinates;
 	sf::RectangleShape block;
 
-	WorldBlock();
-	WorldBlock(WorldBlockCoordinates coordinates);
+	WorldTile();
+	WorldTile(WorldBlockCoordinates coordinates);
 
-	~WorldBlock();
+	~WorldTile();
 	
 private:
 	

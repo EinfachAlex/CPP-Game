@@ -1,7 +1,7 @@
 #include <SFML/Graphics.hpp>
 
-#include "FPSCounter.h"
-#include "desktopResolution.h"
+#include "Utils/FPSCounter.h"
+#include "Utils/desktopResolution.h"
 #include "MainMenu/MainMenu.h"
 #include "MainGame/MainGame.h"
 #include "GameWindow.h"

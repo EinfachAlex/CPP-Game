@@ -1,17 +1,16 @@
 #pragma once
 
-#include "Blocks/WorldBlock.h"
-#include "Blocks/WorldBlockCoordinates.h"
 #include <fstream>
 #include <nlohmann/json.hpp>
 #include <SFML/Graphics/VertexArray.hpp>
 #include <SFML/Graphics/Texture.hpp>
 #include <SFML/Graphics/RenderWindow.hpp>
+#include "Tiles/WorldTile.h"
 
 class GameWorld
 {
 public:
-	WorldBlock blocks[100][100];
+	WorldTile blocks[100][100];
 	sf::VertexArray vertexArray;
 
 	void loadWorld(int);
