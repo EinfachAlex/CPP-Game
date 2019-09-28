@@ -8,9 +8,9 @@
 class MainMenu
 {
 private:
-	MainMenuStartButton* startButton;
-	MainMenuMiddleButton* middleButton;
-	MainMenuEndButton* endButton;
+	std::shared_ptr<MainMenuStartButton> startButton;
+	std::shared_ptr<MainMenuMiddleButton> middleButton;
+	std::shared_ptr<MainMenuEndButton> endButton;
 	MainMenuButton* activeButton;
 
 	static MainMenu* instance;

@@ -21,13 +21,13 @@ MainMenu::MainMenu(sf::RenderWindow* window) {
 	const_cast<sf::Texture&>(font.getTexture(30)).generateMipmap();
 
 	sf::Vector2f position = sf::Vector2f(static_cast<float> ((*this->window).getSize().x / 2), 100.0f);
-	this->startButton = new MainMenuStartButton(sf::Vector2f(300.0f, 100.0f), sf::Text("Spiel starten...!", font, 30), *this->window, position, this);
+	this->startButton = std::make_shared<MainMenuStartButton>(sf::Vector2f(300.0f, 100.0f), sf::Text("Spiel starten...!", font, 30), *this->window, position, this);
 
 	position = sf::Vector2f(static_cast<float> ((*this->window).getSize().x / 2), 200.0f);
-	this->middleButton = new MainMenuMiddleButton(sf::Vector2f(300.0f, 100.0f), sf::Text("Irgendwas hier!", font, 30), *this->window, position, this);
+	this->middleButton = std::make_shared<MainMenuMiddleButton>(sf::Vector2f(300.0f, 100.0f), sf::Text("Irgendwas hier!", font, 30), *this->window, position, this);
 
 	position = sf::Vector2f(static_cast<float> ((*this->window).getSize().x / 2), 300.0f);
-	this->endButton = new MainMenuEndButton(sf::Vector2f(300.0f, 100.0f), sf::Text("Spiel beenden!", font, 30), *this->window, position, this);
+	this->endButton = std::make_shared<MainMenuEndButton>(sf::Vector2f(300.0f, 100.0f), sf::Text("Spiel beenden!", font, 30), *this->window, position, this);
 
 	this->activeButton = &(*this->startButton);
 	this->activeButton->highlight();
@@ -79,20 +79,20 @@ void MainMenu::setActiveButton(MainMenuButton& IactiveButton)
 
 MainMenuStartButton& MainMenu::getStartButton()
 {
-	return *startButton;
+	return *this->startButton;
 }
 
 MainMenuMiddleButton& MainMenu::getMiddleButton()
 {
-	return *middleButton;
+	return *this->middleButton;
 }
 
 MainMenuEndButton& MainMenu::getEndButton()
 {
-	return *endButton;
+	return *this->endButton;
 }
 
 MainMenuButton& MainMenu::getActiveButton()
 {
-	return *activeButton;
+	return *this->activeButton;
 }
