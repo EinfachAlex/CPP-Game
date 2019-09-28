@@ -5,7 +5,7 @@ bool MainMenu::active = true;
 MainMenu* MainMenu::instance;
 
 MainMenu* MainMenu::getInstance() {
-	if (&MainMenu::instance == NULL) {
+	if (MainMenu::instance == NULL) {
 		MainMenu::instance = new MainMenu(GameWindow::getInstance());
 	}
 
