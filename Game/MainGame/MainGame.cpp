@@ -58,7 +58,7 @@ void MainGame::startNewGame()
 void MainGame::draw() {
 	MainGame::gameWorld.draw(*this->window);
 MainGame* MainGame::getInstance() {
-	if (&MainGame::instance == NULL) {
+	if (MainGame::instance == NULL) {
 		MainGame::instance = new MainGame(GameWindow::getInstance());
 	}
 	return MainGame::instance;
