@@ -11,9 +11,9 @@ int main()
 {
 	GameWindow& window = *GameWindow::getInstance(sf::VideoMode((getDesktopResolution().right / 2), (getDesktopResolution().bottom) / 2), "SFML works!");
 
-	MainMenu mainMenu = MainMenu(&window);
+	MainMenu* mainMenu = MainMenu::getInstance();
 
-	MainGame mainGame = MainGame(&window);
+	MainGame* mainGame = MainGame::getInstance();
 
 	//window.setVerticalSyncEnabled(true);
 
@@ -29,12 +29,12 @@ int main()
 		if (window.hasFocus()) {
 			window.clear();
 
-			if (mainMenu.active) {
-				mainMenu.draw();
+			if (mainMenu->active) {
+				mainMenu->loop();
 			}
 
-			if (mainGame.active) {
-				mainGame.draw();
+			if (mainGame->active) {
+				mainGame->draw();
 			}
 
 			window.display();
