@@ -7,8 +7,6 @@
 #include <SFML/System/Vector2.hpp>
 #include <SFML/Graphics/RenderWindow.hpp>
 
-using namespace std;
-
 struct MainMenuButton : public sf::RectangleShape
 {
 public:

@@ -1,22 +1,17 @@
 #include "MainGame.h"
 
-bool MainGame::active = false;
-GameState* MainGame::gameState;
-GameWorld MainGame::gameWorld;
-sf::View MainGame::view = sf::View::View(sf::Vector2f(500.0f, 500.0f), sf::Vector2f(1200.0f, 675.0f));
-sf::RenderWindow* MainGame::window;
+#include "..//MainMenu/Buttons/MainMenuStartButton.h"
+
 MainGame* MainGame::instance;
 
 MainGame::MainGame() {
 }
 
-MainGame::MainGame(sf::RenderWindow* window)
-{
+MainGame::MainGame(sf::RenderWindow* window) {
 	this->window = window;
 }
 
-void MainGame::initialize()
-{
+void MainGame::initialize() {
 	this->window->setView(this->view.getView());
 
 	if (!loadSaveGame()) {
@@ -24,8 +19,6 @@ void MainGame::initialize()
 	}
 	else {
 		MainGame::gameWorld = *new GameWorld();
-
-		std::cout << this->gameState->getName() << '\n';
 
 		MainGame::gameWorld.loadWorld(1);
 	}

@@ -1,6 +1,5 @@
 #include "GameWorld.h"
 #include <iostream>
-#include <chrono>
 #include <thread>
 
 void GameWorld::loadWorldPart(int tn, int threadForLoopLength) {
