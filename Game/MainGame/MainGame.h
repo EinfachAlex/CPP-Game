@@ -3,12 +3,13 @@
 #include <nlohmann/json.hpp>
 #include <fstream>
 #include <iostream>
-#include "GameState.h"
 #include "Overworld/GameWorld.h"
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/Window/Keyboard.hpp>
 #include "..//GameWindow.h"
 #include "Camera.h"
+
+class OverworldGameState;
 
 class MainGame
 {

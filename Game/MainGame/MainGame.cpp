@@ -50,6 +50,12 @@ void MainGame::startNewGame()
 
 }
 
+void MainGame::checkForKeyPress() {
+	//ToDo: Check if any Key is pressed.
+
+	this->gameState->handleKeyPress();
+}
+
 void MainGame::draw() {
 	MainGame::gameWorld.draw(*this->window);
 }
