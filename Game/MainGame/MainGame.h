@@ -8,15 +8,13 @@
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/Window/Keyboard.hpp>
 #include "..//GameWindow.h"
+#include "Camera.h"
 
 class MainGame
 {
 public:
-	static bool active;
-	static GameState* gameState;
-	static GameWorld gameWorld;
 	static sf::View view;
-	static sf::RenderWindow* window;
+	Camera view;
 
 	static MainGame* instance;
 

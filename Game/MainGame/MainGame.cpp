@@ -17,7 +17,7 @@ MainGame::MainGame(sf::RenderWindow* window)
 
 void MainGame::initialize()
 {
-	this->window->setView(this->view);
+	this->window->setView(this->view.getView());
 
 	if (!loadSaveGame()) {
 		startNewGame();
