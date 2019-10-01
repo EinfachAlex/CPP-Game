@@ -34,7 +34,7 @@ int main()
 			}
 
 			if (mainGame->active) {
-				mainGame->draw();
+				mainGame->loop();
 			}
 
 			window.display();
