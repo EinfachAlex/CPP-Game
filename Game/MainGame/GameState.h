@@ -1,13 +1,11 @@
 #pragma once
 #include <string>
 
-class GameState
+struct GameState
 {
 public:
-	GameState(std::string name);
-	std::string getName();
+	GameState();
 
-private:
-	std::string name;
+	virtual void handleKeyPress();
 };
 

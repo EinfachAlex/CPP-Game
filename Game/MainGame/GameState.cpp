@@ -1,10 +1,8 @@
 #include "GameState.h"
 
-GameState::GameState(std::string name)
+GameState::GameState()
 {
-	this->name = name;
 }
 
-std::string GameState::getName() {
-	return this->name;
+void GameState::handleKeyPress() {
 }
