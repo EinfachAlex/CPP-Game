@@ -13,8 +13,11 @@
 class MainGame
 {
 public:
-	static sf::View view;
+	bool active;
+	GameState* gameState;
+	GameWorld gameWorld;
 	Camera view;
+	sf::RenderWindow* window;
 
 	static MainGame* instance;
 
