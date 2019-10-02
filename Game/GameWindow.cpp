@@ -21,4 +21,7 @@ GameWindow* GameWindow::getInstance() {
 	if (GameWindow::instance != NULL) {
 		return GameWindow::instance;
 	}
+	else {
+		throw;
+	}
 }
