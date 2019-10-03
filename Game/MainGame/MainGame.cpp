@@ -62,6 +62,7 @@ void MainGame::draw() {
 
 void MainGame::loop() {
 	this->checkForKeyPress();
+	OverworldCommandQueue::getInstance()->performNextCommand();
 	this->draw();
 }
 

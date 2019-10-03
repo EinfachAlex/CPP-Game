@@ -83,4 +83,8 @@ void GameWorld::draw(sf::RenderWindow& window) {
 	rs.transform = sf::Transform(1, 0, 0, 0, 1, 0, 0, 0, 1);
 
 	window.draw(this->vertexArray, rs);
+
+	this->player.setPosition(100, 100);
+	this->player.setFillColor(sf::Color::Green);
+	window.draw(this->player);
 }
