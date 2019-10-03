@@ -1,8 +1,11 @@
 #include "GameState.h"
 
-GameState::GameState()
-{
+GameState::GameState(){
 }
 
 void GameState::handleKeyPress() {
+}
+
+CommandQueue* GameState::getCommandQueue(){
+	return &this->commandQueue;
 }

@@ -1,6 +1,6 @@
 #pragma once
 #include <string>
-#include "../Utils/CommandQueue/CommandQueue.h"
+#include "../CommandQueue/CommandQueue.h"
 
 struct GameState
 {
@@ -11,5 +11,7 @@ public:
 	GameState();
 
 	virtual void handleKeyPress();
+
+	virtual CommandQueue* getCommandQueue();
 };
 
