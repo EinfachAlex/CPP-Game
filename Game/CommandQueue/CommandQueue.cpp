@@ -1,6 +1,6 @@
 #include "CommandQueue.h"
 
-void CommandQueue::addCommand() {
+void CommandQueue::addCommand(Command command) {
 	//this->commands.insert(Command);
 }
 
