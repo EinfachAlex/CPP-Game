@@ -2,6 +2,7 @@
 #include "../../CommandQueue/Commands/MoveCommand.h"
 
 OverworldCommandQueue* OverworldCommandQueue::instance;
+const int OverworldCommandQueue::cooldown;
 
 OverworldCommandQueue::OverworldCommandQueue() {
 	this->commands.push_back(std::make_shared<MoveCommand>(std::string("Dummy")));
@@ -15,8 +16,20 @@ OverworldCommandQueue* OverworldCommandQueue::getInstance() {
 	return OverworldCommandQueue::instance;
 }
 
-void OverworldCommandQueue::addCommand(std::shared_ptr<Command> command) {
-	this->commands.push_back(command);
+bool OverworldCommandQueue::cooldownActive() {
+	if (std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch()).count() > std::chrono::duration_cast<std::chrono::milliseconds>(this->lastExecuteTime.time_since_epoch()).count() + this->cooldown) {
+		return false;
+	}
+	else {
+		return true;
+	}
+}
+
+void OverworldCommandQueue::addCommand(std::shared_ptr<Command> command, bool addIfNotEmpty) {
+	if (this->cooldownActive() == false || addIfNotEmpty == true) {
+		this->commands.push_back(command);
+
+	}
 }
 
 void OverworldCommandQueue::removeCommand() {
@@ -33,14 +46,14 @@ void OverworldCommandQueue::removeCommand() {
 
 void OverworldCommandQueue::performNextCommand() {
 	if (this->commands.size() > 0) {
-		try
-		{
+		std::chrono::time_point<std::chrono::system_clock> now = std::chrono::system_clock::now();
+
+		if (std::chrono::duration_cast<std::chrono::milliseconds>(now.time_since_epoch()).count() > std::chrono::duration_cast<std::chrono::milliseconds>(this->lastExecuteTime.time_since_epoch()).count() + this->cooldown) {
+
 			this->commands[0]->perform();
 			this->removeCommand();
-		}
-		catch (const std::exception& wtf)
-		{
-			std::cout << wtf.what();
+
+			this->lastExecuteTime = std::chrono::system_clock::now();
 		}
 	}
 }
