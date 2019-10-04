@@ -10,6 +10,7 @@
 class GameWorld
 {
 public:
+	static const int blockSize = 64;
 	WorldTile blocks[100][100];
 	sf::VertexArray vertexArray;
 

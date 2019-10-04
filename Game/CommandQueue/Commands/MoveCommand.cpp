@@ -14,19 +14,19 @@ void MoveCommand::perform() {
 
 	if (this->direction == MoveCommand::MOVE_UP) {
 		//MainGame::getInstance()->gameWorld.player.move();
-		mg->view.move(0, -1);
+		mg->view.move(0, -GameWorld::blockSize);
 	}
 	else if (this->direction == MoveCommand::MOVE_DOWN) {
 		//MainGame::getInstance()->gameWorld.player.move();
-		mg->view.move(0, 1);
+		mg->view.move(0, GameWorld::blockSize);
 	}
 	else if (this->direction == MoveCommand::MOVE_LEFT) {
 		//MainGame::getInstance()->gameWorld.player.move();
-		mg->view.move(-1, 0);
+		mg->view.move(-GameWorld::blockSize, 0);
 	}
 	else if (this->direction == MoveCommand::MOVE_RIGHT) {
 		//MainGame::getInstance()->gameWorld.player.move();
-		mg->view.move(1, 0);
+		mg->view.move(GameWorld::blockSize, 0);
 	}
 
 	mg->window->setView(mg->view.getView());
