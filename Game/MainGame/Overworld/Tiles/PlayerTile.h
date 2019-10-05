@@ -4,6 +4,7 @@
 class WorldTile;
 
 class PlayerTile : public WorldTile {
-
+public:
+	PlayerTile();
 };
 
