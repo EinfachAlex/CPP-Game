@@ -12,3 +12,9 @@ sf::View Camera::getView()
 void Camera::move(double x, double y) {
 	this->view.move(sf::Vector2f(float(x), float(y)));
 }
+
+void Camera::centerOnPlayer(){
+	WorldBlockCoordinates wbc = GameWorld::getInstance()->getPlayer()->coordinates;
+
+	this->view.setCenter(sf::Vector2f(float(wbc.x * GameWorld::tileSize), float(wbc.y * GameWorld::tileSize)));
+}

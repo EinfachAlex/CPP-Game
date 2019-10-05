@@ -21,6 +21,8 @@ void MainGame::initialize() {
 		MainGame::gameWorld = *new GameWorld();
 
 		MainGame::gameWorld.loadWorld(1);
+		this->camera.centerOnPlayer();
+		this->window->setView(this->camera.getView());
 	}
 
 	this->active = true;
