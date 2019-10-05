@@ -19,17 +19,21 @@ public:
 
 	WorldTile tiles[100][100];
 	sf::VertexArray vertexArray;
+	std::shared_ptr<PlayerTile> player;
+
 	static GameWorld* getInstance();
 
 	void loadWorld(int);
 	void draw(sf::RenderWindow& window);
+
+	std::shared_ptr<PlayerTile> getPlayer();
+
 private:
 	static GameWorld* instance;
 
 	sf::RenderWindow* window;
 	sf::Texture texture;
-	int blockSize = 64;
-
+	
 	nlohmann::json worldData;
 
 	void loadWorldPart(int, int);

@@ -83,6 +83,10 @@ void GameWorld::loadWorld(int worldID)
 			std::thread t1 = std::thread(&GameWorld::loadWorldPart, this, static_cast<int>(y), threadForLoopLength);
 			t1.detach();
 		}
+
+		this->player = std::make_shared<PlayerTile>();
+		this->player->tile->setTexture(&this->texture);
+		this->player->tile->setTextureRect(sf::IntRect(0, 16, 16, 16));
 	}
 }
 
@@ -94,8 +98,9 @@ void GameWorld::draw(sf::RenderWindow& window) {
 	rs.transform = sf::Transform(1, 0, 0, 0, 1, 0, 0, 0, 1);
 
 	window.draw(this->vertexArray, rs);
+	window.draw(*this->player->tile);
+}
 
-	this->player.setPosition(100, 100);
-	this->player.setFillColor(sf::Color::Green);
-	window.draw(this->player);
+std::shared_ptr<PlayerTile> GameWorld::getPlayer() {
+	return this->player;
 }
