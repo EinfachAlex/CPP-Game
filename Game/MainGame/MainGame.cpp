@@ -1,6 +1,5 @@
 #include "MainGame.h"
 
-#include "..//MainMenu/Buttons/MainMenuStartButton.h"
 
 MainGame* MainGame::instance;
 
@@ -12,15 +11,17 @@ MainGame::MainGame(sf::RenderWindow* window) {
 }
 
 void MainGame::initialize() {
-	this->window->setView(this->view.getView());
+	this->window->setView(this->camera.getView());
 
 	if (!loadSaveGame()) {
 		startNewGame();
 	}
 	else {
-		MainGame::gameWorld = *new GameWorld();
+		
+		this->gameWorld = GameWorld::getInstance();
 
-		MainGame::gameWorld.loadWorld(1);
+		this->gameWorld->loadWorld(1);
+
 		this->camera.centerOnPlayer();
 		this->window->setView(this->camera.getView());
 	}
@@ -59,7 +60,7 @@ void MainGame::checkForKeyPress() {
 }
 
 void MainGame::draw() {
-	MainGame::gameWorld.draw(*this->window);
+	MainGame::gameWorld->draw(*this->window);
 }
 
 void MainGame::loop() {
