@@ -8,3 +8,7 @@ sf::View Camera::getView()
 {
 	return this->view;
 }
+
+void Camera::move(double x, double y) {
+	this->view.move(sf::Vector2f(float(x), float(y)));
+}

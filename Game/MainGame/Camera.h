@@ -9,9 +9,7 @@ private:
 public:
 	Camera();
 
-	void move(float x, float y) {
-		this->view.move(sf::Vector2f(x, y));
-	}
+	void move(double x, double y);
 
 	sf::View getView();
 };
