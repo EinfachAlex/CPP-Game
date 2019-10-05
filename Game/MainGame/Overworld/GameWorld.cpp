@@ -1,6 +1,9 @@
+#pragma warning( disable : 4244)
+
 #include "GameWorld.h"
-#include <iostream>
-#include <thread>
+
+const int GameWorld::tileSize;
+GameWorld* GameWorld::instance;
 
 void GameWorld::loadWorldPart(int tn, int threadForLoopLength) {
 	std::chrono::time_point<std::chrono::system_clock> tstart = std::chrono::system_clock::now();
@@ -47,6 +50,14 @@ void GameWorld::loadWorldPart(int tn, int threadForLoopLength) {
 	std::chrono::time_point<std::chrono::system_clock> tend = std::chrono::system_clock::now();
 	auto timePassed = std::chrono::duration_cast<std::chrono::milliseconds>(tend - tstart);
 	std::cout << "Thread " << tn << " finished (in " << timePassed.count() << " ms)\n";
+}
+
+GameWorld* GameWorld::getInstance(){
+	if (GameWorld::instance == NULL) {
+		GameWorld::instance = new GameWorld();
+	}
+
+	return GameWorld::instance;
 }
 
 void GameWorld::loadWorld(int worldID)
