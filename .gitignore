@@ -357,3 +357,11 @@ Game.sln
 Game/Game.vcxproj
 Game/Game.vcxproj.filters
 /JSON
+*.tmx
+*.cd
+*.tsx
+*.rc
+*.json
+Game/Source.cpp
+Game/TileMap.cpp
+Game/TileMap.h

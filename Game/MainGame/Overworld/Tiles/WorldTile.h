@@ -3,12 +3,13 @@
 #include "TileCoordinates.h"
 #include "SFML/Graphics/RectangleShape.hpp"
 #include "TileCoordinates.h"
+#include <memory>
 
 class WorldTile
 {
 public:
 	WorldBlockCoordinates coordinates;
-	sf::RectangleShape block;
+	std::shared_ptr<sf::RectangleShape> tile;
 
 	WorldTile();
 	WorldTile(WorldBlockCoordinates coordinates);
