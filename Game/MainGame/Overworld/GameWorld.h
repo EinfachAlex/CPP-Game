@@ -10,8 +10,9 @@
 class GameWorld
 {
 public:
-	static const int blockSize = 64;
-	WorldTile blocks[100][100];
+	static const int tileSize = 64;
+
+	WorldTile tiles[100][100];
 	sf::VertexArray vertexArray;
 
 	void loadWorld(int);

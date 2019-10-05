@@ -18,24 +18,24 @@ void GameWorld::loadWorldPart(int tn, int threadForLoopLength) {
 				tileID = this->worldData["data"][(x + (y * this->worldData["height"]))];
 
 
-				int tx = tileID % (this->texture.getSize().x / this->blockSize) - 1;
-				int ty = tileID / (this->texture.getSize().x / this->blockSize);
+				int tx = tileID % (this->texture.getSize().x / this->tileSize) - 1;
+				int ty = tileID / (this->texture.getSize().x / this->tileSize);
 
 				WorldTile wt = WorldTile(WorldBlockCoordinates(x, y));
-				this->blocks[x][y] = wt;
+				this->tiles[x][y] = wt;
 
 
 				sf::Vertex* quad = &this->vertexArray[(x + (y * this->worldData["height"])) * 4];
 
-				quad[0].position = sf::Vector2f(wt.coordinates.x * blockSize, wt.coordinates.y * blockSize);
-				quad[1].position = sf::Vector2f(wt.coordinates.x * blockSize + blockSize, wt.coordinates.y * blockSize + 0);
-				quad[2].position = sf::Vector2f(wt.coordinates.x * blockSize + blockSize, wt.coordinates.y * blockSize + blockSize);
-				quad[3].position = sf::Vector2f(wt.coordinates.x * blockSize + 0, wt.coordinates.y * blockSize + blockSize);
+				quad[0].position = sf::Vector2f(wt.coordinates.x * tileSize, wt.coordinates.y * tileSize);
+				quad[1].position = sf::Vector2f(wt.coordinates.x * tileSize + tileSize, wt.coordinates.y * tileSize + 0);
+				quad[2].position = sf::Vector2f(wt.coordinates.x * tileSize + tileSize, wt.coordinates.y * tileSize + tileSize);
+				quad[3].position = sf::Vector2f(wt.coordinates.x * tileSize + 0, wt.coordinates.y * tileSize + tileSize);
 
-				quad[0].texCoords = sf::Vector2f((tx * this->blockSize), (ty * this->blockSize));
-				quad[1].texCoords = sf::Vector2f(((tx + 1) * this->blockSize), (ty * this->blockSize));
-				quad[2].texCoords = sf::Vector2f(((tx + 1) * this->blockSize), ((ty + 1) * this->blockSize));
-				quad[3].texCoords = sf::Vector2f((tx * this->blockSize), ((ty + 1) * this->blockSize));
+				quad[0].texCoords = sf::Vector2f((tx * this->tileSize), (ty * this->tileSize));
+				quad[1].texCoords = sf::Vector2f(((tx + 1) * this->tileSize), (ty * this->tileSize));
+				quad[2].texCoords = sf::Vector2f(((tx + 1) * this->tileSize), ((ty + 1) * this->tileSize));
+				quad[3].texCoords = sf::Vector2f((tx * this->tileSize), ((ty + 1) * this->tileSize));
 			}
 			catch (const std::exception& err)
 			{
