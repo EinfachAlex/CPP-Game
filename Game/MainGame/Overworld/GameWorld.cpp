@@ -25,8 +25,13 @@ void GameWorld::loadWorldPart(int tn, int threadForLoopLength) {
 				int ty = tileID / (this->texture.getSize().x / this->tileSize);
 
 				WorldTile wt = WorldTile(WorldBlockCoordinates(x, y));
-				this->tiles[x][y] = wt;
 
+				if (this->tiles.capacity() <= x) {
+					this->tiles.reserve(x + 1);
+					this->tiles.push_back(*new std::vector<WorldTile>);
+				}
+				this->tiles[x].reserve(y + 1);
+				this->tiles[x].push_back(wt);
 
 				sf::Vertex* quad = &this->vertexArray[(x + (y * this->worldData["height"])) * 4];
 

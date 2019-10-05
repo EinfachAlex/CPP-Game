@@ -15,9 +15,9 @@
 class GameWorld
 {
 public:
-	static const int tileSize = 64;
+	static const int tileSize = 48;
 
-	WorldTile tiles[100][100];
+	std::vector<std::vector<WorldTile>> tiles;
 	sf::VertexArray vertexArray;
 	std::shared_ptr<PlayerTile> player;
 
